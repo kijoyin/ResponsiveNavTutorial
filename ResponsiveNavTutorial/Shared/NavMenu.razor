@@ -1,37 +1,35 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">ResponsiveNavTutorial</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
+﻿<nav>
+    <div class="logo">
+        <h4>The Nav</h4>
+    </div>
+    <ul class="nav-links">
+        <li>
+            @for (int i = 0; i < NavItems.Count(); i++)
+            {
+                var menu = NavItems[i];
+                @if (i == 0)
+                {
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        @menu
+                    </NavLink>
+                }
+                else
+                {
+                    <NavLink class="nav-link" href="@menu">
+                        @menu
+                    </NavLink>
+                }
+            }
         </li>
     </ul>
-</div>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+</nav>
 
-@code {
-    bool collapseNavMenu = true;
-
-    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+@code
+{
+    [Parameter] public string[] NavItems { get; set; }
 }
